@@ -24,4 +24,4 @@ scrape_configs:
   - targets: ['192.168.0.37:9100']
 - job_name: 'node2'
   static_configs:
-  - targets: ['192.168.0.37:9100']
+  - targets: ['192.168.0.38:9100']

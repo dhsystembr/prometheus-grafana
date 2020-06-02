@@ -34,7 +34,7 @@ services:
     deploy:
       mode: global
     networks:
-      - backend
+      -  
     ports:
       - 9100:9100
     networks:
