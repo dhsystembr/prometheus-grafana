@@ -1,0 +1,45 @@
+version: "3"
+services:
+  prometheus:
+    image: quay.io/prometheus/prometheus:v2.0.0
+    container_name: prometheus
+    volumes:
+     - ./etc/prometheus/:/etc/prometheus/
+     - ./data/prometheus/:/prometheus/
+    command: "--config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus"
+    ports:
+     - 9090:9090
+    networks:
+      - backend
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+     - 3000:3000
+    volumes:
+      - ./data/grafana/:/var/lib/grafana
+      - ./etc/grafana/:/etc/grafana/provisioning/
+    depends_on:
+      - prometheus
+    networks:
+      - backend
+      - frontend
+  node-exporter:
+    image: linuxtips/node-exporter_alpine
+    hostname: '{{.Node.ID}}'
+    volumes:
+      - /proc:/usr/proc
+      - /sys:/usr/sys
+      - /:/rootfs
+    deploy:
+      mode: global
+    networks:
+      - backend
+    ports:
+      - 9100:9100
+    networks:
+      - backend
+
+networks:
+  frontend:
+  backend:
