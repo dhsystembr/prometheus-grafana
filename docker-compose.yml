@@ -1,7 +1,7 @@
 version: "3"
 services:
   prometheus:
-    image: linuxtips/prometheus_alpine:
+    image: linuxtips/prometheus_alpine
     container_name: prometheus
     volumes:
      - ./etc/prometheus/:/etc/prometheus/
